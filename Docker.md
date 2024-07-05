@@ -1,13 +1,14 @@
 #### Monolithic and Microservice
 - Monolithic Architecture, the all components of application is tightly bounded and all the component code should write in same language if any component require updation we need to deploy the entire application. Ex: Finacial service like Banking
 - Microservice Architecture, the component of applications are autonomous, each component can code with different language, any update in a component can achieve by deploying the service alone not the entire application. Ex: Swiggy 
+- ![vm_container.png](https://github.com/email4prasanth/Practice-Docker/blob/master/Images/vm_container.png)
 - Hardware servers -- Virtual Machines(Monolithic) -- Containers(Microservice)
 - (Container)[https://jvns.ca/blog/2016/10/10/what-even-is-a-container/] is collection of linux features like namespace(seperates process/applicaiton) and cgroups(Memory Calculation) that isolates the processes from each other. 
 - Docker Engine is a containerization engine that runs on servers and manage containers.
 - why container are using?
     - Deployment is fast compare to VM, the OS layer is common for all application and there is no over head. 
 - (container runtime)[https://www.aquasec.com/cloud-native-academy/container-security/container-runtime/]
-- Basic thing is how to connent and run the docker.
+- Basic thing is how to connent and run the docker, ![DockerArchitecture](https://github.com/email4prasanth/Practice-Docker/blob/master/Images/Architecture-of-Docker.png).
 - Launch ubuntu server `Docker_Host` t2.micro use URL IPv4Address putty login as `ubuntu` and go to root user, install jq, unzip, nettools
 ```
 docker (not found)
@@ -32,7 +33,7 @@ docker images (Repository, Tag, Image ID, Created, Size)
 ```
 ifconfig ( you can see docker0 Bridge network)
 ```
-- ![Portforwarding]() (1:08:00) 
+- ![Portforwarding](https://github.com/email4prasanth/Practice-Docker/blob/master/Images/port%20forwarding.png) (1:08:00) 
 - docker0 is a bridge network that connects etho0 and applications.
 - To pull the image from the dockerhub in different ways
 1. image pull from dockerhub
