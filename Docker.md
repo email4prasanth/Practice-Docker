@@ -2,7 +2,9 @@
 - Monolithic Architecture, the all components of application is tightly bounded and all the component code should write in same language if any component require updation we need to deploy the entire application. Ex: Finacial service like Banking
 - Microservice Architecture, the component of applications are autonomous, each component can code with different language, any update in a component can achieve by deploying the service alone not the entire application. Ex: Swiggy 
 - ![vm_container.png](https://github.com/email4prasanth/Practice-Docker/blob/master/Images/vm_container.png)
-- Hardware servers -- Virtual Machines(Monolithic) -- Containers(Microservice)
+- Hardware servers (physical servers in datacenter) -- Virtual Machines(Monolithic) -- Containers(Microservice)
+#### ways to install container.
+
 - (Container)[https://jvns.ca/blog/2016/10/10/what-even-is-a-container/] is collection of linux features like namespace(seperates process/applicaiton) and cgroups(Memory Calculation) that isolates the processes from each other. 
 - Docker Engine is a containerization engine that runs on servers and manage containers.
 - why container are using?
@@ -11,9 +13,10 @@
 - Basic thing is how to connent and run the docker, ![DockerArchitecture](https://github.com/email4prasanth/Practice-Docker/blob/master/Images/Architecture-of-Docker.png).
 - Launch ubuntu server `Docker_Host` t2.micro use URL IPv4Address putty login as `ubuntu` and go to root user, install jq, unzip, nettools
 ```
+apt update
 docker (not found)
-ifconfig
-apt update && apt install -y net-tools jq unzip
+ifconfig (not found)
+apt install -y net-tools jq unzip
 ifconfig (will show eth0)
 curl https://get.docker.com | bash
 ifconfig
@@ -41,13 +44,17 @@ ifconfig ( you can see docker0 Bridge network)
 docker pull nginx
 docker images
 docker images --digests
+REPO TAG DIGEST IMAGEID CREATED SIZE
 docker image inspect nginx:latest
+docker image inspect nginx:latest | jq -r '.[0].RootFS.Layers[]'
 docker rmi nginx:latest --force
 ```
 2. image pull using digest
 ```
-docker pull nginx:sha256:67682bda769fae1ccf5183192b8daf37b64cae99c6c3302650f6f8bf5f0f95df
-docker tag [sourceimageid]  nginx:sha95df
+docker pull nginx@sha256:67682bda769fae1ccf5183192b8daf37b64cae99c6c3302650f6f8bf5f0f95df
+docker images
+docker tag [sourceimageid]  nginx:updated
+docker rmi imageid
 ```
 3. Pull from a different registry
 - The following command pulls the testing/test-image image from a local registry listening on port 5000 (myregistry.local:5000):
