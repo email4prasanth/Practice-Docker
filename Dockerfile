@@ -7,5 +7,5 @@ COPY style.css var/www/html/style.css
 ADD scorekeeper.js var/www/html/scorekeeper.js
 RUN apt install -y unzip curl wget net-tools
 ADD https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip terraform.zip
-RUN cd /usr/local/bin && unzip terraform.zip
+RUN cd /usr/local/bin/ && unzip terraform.zip
 RUN terraform version
