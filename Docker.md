@@ -66,24 +66,19 @@ docker pull myregistry.local:5000/testing/test-image
 docker pull -a ubuntu or docker image pull --all-tags ubuntu
 docker image ls --filter reference=ubuntu
 ```
-
-
-
-#### Interview Question
-- what are the defalut network created when docker is installed
-    - Bridge (similar to IGW), host and Null Network to see this `docker network ls`
-- Docker swarm what network you can see
-    - Ingress under scope `Overlay`
+#### Part-2 Building custom docker image
+- Login to docker host server, the default public web root is `var/www/`
 - Dockerfile
     - FROM -- Specifies base image to use for docker. `Ex FROM python:3.12 or FROM ubuntu:22.04`
-    - LABEL --  metadata to image `Ex LABEL owner="", LABEL version=""`
+    - LABEL --  metadata to image in key-pair `Ex LABEL owner="", LABEL version=""`
     - ARG - Declare variables that can use at build time
         ```
         ARG VERSION
         ADD https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip /usr/local/bin/terraform.zip
         ```
     - WORKDIR - setting working directory to copy the code `Ex: WORKDIR /app`
-    - COPY - Copy file from host machine to a directory `Ex: COPY COPY scorekeeper.js /var/www/html/scorekeeper.js`
+    - COPY - Copy file from host machine to a directory `Ex: COPY scorekeeper.js /var/www/html/scorekeeper.js`
+    - COPY is used to copy the file and ADD is used to copy and download
     - RUN - run the commands, install a needed packages to build an image
     ```
     RUN apt update
@@ -95,6 +90,18 @@ docker image ls --filter reference=ubuntu
     ```
     CMD ["nginx","-g","daemon off;"] - to run the ngnix in foreground
     CMD ["python", "app.py"]
+    ENTTRY POINT
+
     ```
+
+
+#### Interview Question
+- what are the defalut network created when docker is installed
+    - Bridge (similar to IGW), host and Null Network to see this `docker network ls`
+- Docker swarm what network you can see
+    - Ingress under scope `Overlay`
+- Difference between RUN and CMD
     - RUN command is used to build the image, CMD is used to run the commands while running an image.
+- Which instructions will create layers in the Dockerfile
+    - ADD, COPY and RUN commands will create layers which creates an impact in the size of container.
 
