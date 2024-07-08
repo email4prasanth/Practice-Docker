@@ -1,0 +1,3 @@
+FROM python:3.12-alpine
+LABEL author="prasanth"
+RUN pip install --upgrade pip
