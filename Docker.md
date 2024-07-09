@@ -126,9 +126,8 @@ docker rm $(docker ps -aq)
 docker images
 docker run -d marriprasanth/nginx:v2 (4 times)
 docker ps (this will show that containers are running)
-docker stop ${docker ps -aq}
-docker rmi ${docker ps -aq}
-docker rmi ${docker images -aq}
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
 docker images
 ```
 - To copy the same image with different tag `docker tag imageid marriprasanth/newname:v1`.
