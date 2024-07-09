@@ -1,3 +1,6 @@
-FROM python:3.12-alpine
+FROM python:3.12-slim
 LABEL author="prasanth"
-RUN pip install --upgrade pip
+WORKDIR /app
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+CMD ["python", "app.py"]

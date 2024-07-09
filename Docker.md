@@ -95,7 +95,7 @@ docker image ls --filter reference=ubuntu
     ```
 - We can create multiple docker files and build the images, Here **dot(.)** represents the current folder
 ```
-docker images
+docker images (after build this will gives the images)
 docker build -t marriprasanth/nginx:v1 -f Dockerfile .
 docker build -t marriprasanth/pyhton:v1 -f Dockerfile.python .
 docker history imageid ( this will gives the layers of docker image)
@@ -115,7 +115,7 @@ exit
 - If we dont want to enter into container but need to run and exit do the step for 4 or 5 times, and stop the running containers and remove the containers
 ```
 docker run -d marriprasanth/nginx:v1 (4 times)
-docker ps
+docker ps (when the container is running for the given image)
 docker ps -a
 docker ps -aq
 docker stop $(docker ps -aq)
@@ -133,20 +133,55 @@ docker images
 - To copy the same image with different tag `docker tag imageid marriprasanth/newname:v1`.
 - 52:30 EXPOSE is used to tell the current image will open in repective port, remove all images now build an image and run the image with name `nginx01` and expose to port 80
 ```
-docker ps -a
 docker images
-docker rmi ${docker image -aq}
+docker ps -a
+docker rm $(docker ps -aq)
+docker rmi $(docker image -aq)  
 docker build -t marriprasanth/testing:v1 -f Dockerfile .
 docker images
-doker image inspect marriprasanth/testing:v1 (get the port number)
+docker inspect imageid | jq ".[].Config.ExposedPorts" (get the port number)
 docker run -d --name nginx01 --publish 8000:80 marriprasanth/testing:v1
+```
+- Open URL paste the Server IPv4 address with 8000 extension.
+```
 docker ps
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker ps
+docker images
+docker rmi $(docker images -aq) --force
+docker images
+dock
 ```
 - Open URL paste the Server IPv4 address with 8000 extension.
 - Chaning the instruction `ARG` using cli
 ```
 docker build -t marriprasanth/nginx:v2 -f Dockerfile --build-arg VERSION='1.1.1' .
 ```
+#### Part-3 Pushing image to ECR & hub.Docker
+- Create AWS ECR `dkuttirepo` 
+- Establish connection with ubuntu server install aws cli 
+```
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+aws --configure (enter AWS credential genereted using IAM role ACCESS KEY & SECRET KEY)
+docker images
+docker build -t marriprasanth/nginx:v1 -f Dockerfile .
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 610203850228.dkr.ecr.us-east-1.amazonaws.com
+docker tag marriprasanth/nginx:v1 610203850228.dkr.ecr.us-east-1.amazonaws.com/dkuttirepo:latest
+docker push 610203850228.dkr.ecr.us-east-1.amazonaws.com/dkuttirepo:latest
+```
+- Push the image to docker hub, we need to login
+```
+docker login (wiht email and password)
+docker tag marriprasanth/nginx:v1 dkutti/testing:v1
+```
+
+
+
+
 #### Interview Question
 - what are the defalut network created when docker is installed
     - Bridge (similar to IGW), host and Null Network to see this `docker network ls`
