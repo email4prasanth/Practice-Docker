@@ -111,23 +111,22 @@ docker run -it marriprasanth/nginx:v1
 exit
 docker run -it marriprasanth/nginx:v1
 exit
-docker ps
-docker ps -a
 ```
-- If we dont want to enter into container but need to run and exit do the step for 4 or 5 times
+- If we dont want to enter into container but need to run and exit do the step for 4 or 5 times, and stop the running containers and remove the containers
 ```
 docker run -d marriprasanth/nginx:v1 (4 times)
 docker ps
 docker ps -a
 docker ps -aq
-docker rmi ${docker ps -aq}
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
 ```
-- **Docker/Container is a process** we need `CMD` command to run the process. 
+- **Docker/Container is a process** we need `CMD` command to run the process.
 ```
 docker images
 docker run -d marriprasanth/nginx:v2 (4 times)
 docker ps (this will show that containers are running)
-docker stop ${docker ps -aq} 
+docker stop ${docker ps -aq}
 docker rmi ${docker ps -aq}
 docker rmi ${docker images -aq}
 docker images
