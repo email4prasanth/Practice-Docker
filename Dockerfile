@@ -9,4 +9,5 @@ RUN apt install -y nginx unzip curl wget net-tools
 ADD https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_linux_amd64.zip /usr/local/bin/terraform.zip
 RUN cd /usr/local/bin/ && unzip terraform.zip
 RUN terraform version
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx","-g","daemon off;"]
+
