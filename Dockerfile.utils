@@ -12,6 +12,7 @@ RUN apt-get update && \
     groff \
     less \
     python3 \
+    nginx \
     python3-pip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -26,4 +27,4 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 RUN aws --version
 
 # Set the default command to an interactive shell
-CMD ["bash"]
+CMD ["nginx","-g","daemon off;"]
