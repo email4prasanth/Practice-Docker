@@ -160,7 +160,7 @@ docker build -t marriprasanth/nginx:v2 -f Dockerfile --build-arg VERSION='1.1.1'
 ```
 #### Part-3 Pushing image to ECR & hub.Docker
 - Create AWS ECR `dkuttirepo` 
-- Establish connection with ubuntu server install aws cli 
+- Establish connection between ECR and ubuntu server. Install aws cli in ubuntu and create a repo in AWS, Credentials using IAM with `AdminFullAccess`.
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
@@ -178,10 +178,38 @@ docker push 610203850228.dkr.ecr.us-east-1.amazonaws.com/dkuttirepo:latest
 docker login (wiht email and password)
 docker tag marriprasanth/nginx:v1 dkutti/testing:v1
 ```
-
-
-
-
+- We can stop and start the docker container
+```
+docker images
+docker build -t marriprasanth/nginx:v1 -f Dockerfile .
+docker run --rm -d --name nginx01 -p 8000:80 marriprasanth/nginx:v1
+docker ps 
+docker exec -it nginx01 /bin/bash
+exit
+docker stop nginx01
+docker ps 
+docker ps -a
+docker start nginx01
+docker ps
+```
+- **Docker is stateless** data will lost when conatainer is stopped, it is a single point of failure. It can be over come by attaching volumes.
+- How to delete stop and exit containers
+```
+docker run -d -p  8000:80 nginx:latest ( this will take random name )
+docker run -d -p  8001:80 nginx:latest
+docker run -d -p  8002:80 nginx:latest
+docker ps
+docker stop (names of container)
+docker ps
+docker ps -a
+docker rm $(docker ps -aq)
+```
+- The above will consume space and will increase to overcome this we can use **--rm** command.
+```
+docker run --rm -d -p 8000:80 nginx:latest 
+docker run --rm --name nginx01 8001:80 nginx:latest (with name)
+docker run --rm -d -p 8002:80 nginx:latest
+```
 #### Interview Question
 - what are the defalut network created when docker is installed
     - Bridge (similar to IGW), host and Null Network to see this `docker network ls`
@@ -189,9 +217,16 @@ docker tag marriprasanth/nginx:v1 dkutti/testing:v1
     - Ingress under scope `Overlay`
 - Difference between RUN and CMD
     - RUN command is used to build the image, CMD is used to run the commands while running an image.
+- Difference between CMD and entry point
+    - CMD can edit during `docker run` but ENTRYPOINT can not accept edit.
 - what are docker layers (32:07)
     - Dockerfile conatains set of instruction, when we perform the `docker build` to create an image some instruction like ADD (download and copy) files, COPY, RUN will create layers that can imapact the size of container. 
 - Which instructions will create layers in the Dockerfile
     - ADD, COPY and RUN commands will create layers which creates an impact in the size of container.
 - Difference between ARG and ENV
+- 
+- 12:15 Do you have idea on Docker and Kubernetes.
+    - Yes i have knowledge on both, as you know most of the developers use docker for local testing. where as in production environment is running on kubernetes. 
+- Difference between kill, stop and pause in docker
+    - stop will release the memory, pause will keep the memory portion but not utilize CPU. Kill is hard stop command.
 
