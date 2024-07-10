@@ -25,5 +25,5 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # Verify the installation
 RUN aws --version
 
-# Set the entrypoint to the AWS CLI
-ENTRYPOINT ["aws"]
+# Set the default command to an interactive shell
+CMD ["bash"]
