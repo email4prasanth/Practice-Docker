@@ -1,0 +1,26 @@
+services:
+  wiki:
+    image: requarks/wiki:latest
+    container_name: wikijs-container
+    restart: unless-stopped
+    ports:
+      - "80:3000"
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: root
+      DB_PASS: mysecretpassword
+      DB_NAME: test-database
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin_password
+    networks:
+      - pg-network
+    volumes:
+      - ./config:/config
+      - ./data:/data
+    depends_on:
+      - db
+
+networks:
+  pg-network:

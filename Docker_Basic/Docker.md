@@ -210,6 +210,41 @@ docker run --rm -d -p 8000:80 nginx:latest
 docker run --rm --name nginx01 8001:80 nginx:latest (with name)
 docker run --rm -d -p 8002:80 nginx:latest
 ```
+
+#### Creating my own custom image with necessary pacakges
+- Creating `Dockerfile.utils` that contains following packages and tools
+```
+aws-cli
+python3
+nginx
+curl
+net-tools
+wget
+jq
+terraform 
+packer 
+```
+- I created the Dockerfile using instruction i used CMD nginx and push the image to my repository
+```
+docker build -t marriprasanth/uitls:v1 -f Dockerfile.utils .
+docker images
+docker run -d --name utils01 -p 8300:80 marriprasanth/uitls:v1 (without -d it wont exit)
+docker psdocker exec -it utils01 /bin/bash
+```
+- open edge browser check the continer is running copy URL with 8300 extension, enter into the container and check the installation 
+```
+docker exec -it utils01 /bin/bash
+ll
+cd /usr/local/
+ll (you can see aws-cli , lib (python))
+exit
+docker ps -a
+docker login (gvie email and password)
+docker images
+docker tag marriprasanth/uitls:v1 dkutti/utils:v1
+docker images
+docker push dkutti/utils:v1
+```
 #### Interview Question
 - what are the defalut network created when docker is installed
     - Bridge (similar to IGW), host and Null Network to see this `docker network ls`

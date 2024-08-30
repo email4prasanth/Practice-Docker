@@ -11,4 +11,3 @@ RUN cd /usr/local/bin/ && unzip terraform.zip
 RUN terraform version
 EXPOSE 80 
 CMD ["nginx","-g","daemon off;"]
-
