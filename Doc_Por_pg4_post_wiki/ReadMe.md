@@ -1,4 +1,8 @@
 #### Docker+Portainer+Pgadmin4+Postgress+Wikijs
+- video - https://www.youtube.com/watch?v=Dd8_plibBYk
+- link1 - https://hub.docker.com/r/linuxserver/wikijs
+- link2 - https://github.com/bmcgonag/docker_installs/blob/main/install_docker_nproxyman.sh
+- link3 -Setting Up a PostgreSQL Database and pgAdmin with Docker Compose - https://blog.stackademic.com/setting-up-a-postgresql-database-and-pgadmin-with-docker-compose-ec8655854711
 - **Postgress+Wikijs+Pgadmin4** - Usecase - Office needs a place to keep track of project plans, meeting notes, and team guidelines. 
 - Wiki.js makes it easy to create and update content  and share your documents, 
 - PostgreSQL ensures everything is securely stored and properly organized.
@@ -15,8 +19,8 @@
 - create a user `brain` and give sudo permission 
 ```
 sudo su - 
-useradd brain (1234)
-cat \etc\passwd
+adduser brain (1234)
+cat /etc/passwd
 usermod -aG sudo brain
 su - brain
 mkdir docker
@@ -65,5 +69,5 @@ docker-compose -f docker-compose.db.yml up -d
 ```
 docker-compose -f docker-compose.wiki.yml up -d
 ```
-
+brain@fixdelrio.com, India@123456, https://wiki.mydomain.com
 
